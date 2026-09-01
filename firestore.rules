@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    match /hero/{documentId} {
+      allow read, write: if true;
+    }
+    match /about/{documentId} {
+      allow read, write: if true;
+    }
+    match /services/{documentId} {
+      allow read, write: if true;
+    }
+    match /projects/{documentId} {
+      allow read, write: if true;
+    }
+    match /news/{documentId} {
+      allow read, write: if true;
+    }
+    match /testimonials/{documentId} {
+      allow read, write: if true;
+    }
+    match /faq/{documentId} {
+      allow read, write: if true;
+    }
+    match /faqs/{documentId} {
+      allow read, write: if true;
+    }
+    match /contact/{documentId} {
+      allow read, write: if true;
+    }
+    match /footer/{documentId} {
+      allow read, write: if true;
+    }
+    match /settings/{documentId} {
+      allow read, write: if true;
+    }
+    match /admins/{userId} {
+      allow read, write: if true;
+    }
+    match /inquiries/{documentId} {
+      allow read, write: if true;
+    }
+    match /gallery/{documentId} {
+      allow read, write: if true;
+    }
+    match /team/{documentId} {
+      allow read, write: if true;
+    }
+    match /media/{documentId} {
+      allow read, write: if true;
+    }
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "entities": {
+    "Hero": {
+      "title": "Hero",
+      "description": "Hero section content",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "type": "string" },
+        "buttonText": { "type": "string" },
+        "buttonLink": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "subtitle"]
+    },
+    "About": {
+      "title": "About",
+      "description": "About section content",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "images": { "type": "array" },
+        "stats": { "type": "array" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "description"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "A service offered",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "icon": { "type": "string" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "description", "order"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "A portfolio project",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "content": { "type": "string" },
+        "thumbnail": { "type": "string" },
+        "image": { "type": "string" },
+        "gallery": { "type": "array" },
+        "location": { "type": "string" },
+        "year": { "type": "string" },
+        "isFeatured": { "type": "boolean" },
+        "isPublished": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "category"]
+    },
+    "News": {
+      "title": "News",
+      "description": "News articles and long-form project stories",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "summary": { "type": "string" },
+        "content": { "type": "string" },
+        "image": { "type": "string" },
+        "gallery": { "type": "array" },
+        "projectId": { "type": "string" },
+        "author": { "type": "string" },
+        "isPublished": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "content"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "A client testimonial",
+      "type": "object",
+      "properties": {
+        "author": { "type": "string" },
+        "company": { "type": "string" },
+        "role": { "type": "string" },
+        "rating": { "type": "number" },
+        "quote": { "type": "string" },
+        "photo": { "type": "string" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["author", "quote", "order"]
+    },
+    "Faq": {
+      "title": "FAQ",
+      "description": "Frequently asked question",
+      "type": "object",
+      "properties": {
+        "question": { "type": "string" },
+        "answer": { "type": "string" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["question", "answer", "order"]
+    },
+    "Contact": {
+      "title": "Contact Details",
+      "description": "Contact info shown on the site",
+      "type": "object",
+      "properties": {
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "address": { "type": "string" },
+        "mapsUrl": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "socialMedia": { "type": "array" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": []
+    },
+    "Footer": {
+      "title": "Footer Details",
+      "description": "Footer content",
+      "type": "object",
+      "properties": {
+        "copyright": { "type": "string" },
+        "links": { "type": "array" },
+        "socialMedia": { "type": "array" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": []
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Global settings",
+      "type": "object",
+      "properties": {
+        "siteName": { "type": "string" },
+        "siteDescription": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["siteName"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Admin Users",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" }
+      },
+      "required": ["email"]
+    },
+    "GalleryItem": {
+      "title": "Gallery Item",
+      "description": "An image in the visual gallery archive",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "name": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["url"]
+    }
+  },
+  "firestore": {
+    "/gallery/{documentId}": {
+      "schema": { "$ref": "#/entities/GalleryItem" },
+      "description": "Gallery visual items"
+    },
+    "/hero/{documentId}": {
+      "schema": { "$ref": "#/entities/Hero" },
+      "description": "Hero section"
+    },
+    "/about/{documentId}": {
+      "schema": { "$ref": "#/entities/About" },
+      "description": "About section"
+    },
+    "/services/{documentId}": {
+      "schema": { "$ref": "#/entities/Service" },
+      "description": "Services"
+    },
+    "/projects/{documentId}": {
+      "schema": { "$ref": "#/entities/Project" },
+      "description": "Projects"
+    },
+    "/news/{documentId}": {
+      "schema": { "$ref": "#/entities/News" },
+      "description": "News and project long stories"
+    },
+    "/testimonials/{documentId}": {
+      "schema": { "$ref": "#/entities/Testimonial" },
+      "description": "Testimonials"
+    },
+    "/faq/{documentId}": {
+      "schema": { "$ref": "#/entities/Faq" },
+      "description": "Frequently asked questions"
+    },
+    "/contact/{documentId}": {
+      "schema": { "$ref": "#/entities/Contact" },
+      "description": "Contact info"
+    },
+    "/footer/{documentId}": {
+      "schema": { "$ref": "#/entities/Footer" },
+      "description": "Footer info"
+    },
+    "/settings/{documentId}": {
+      "schema": { "$ref": "#/entities/Settings" },
+      "description": "Global site settings"
+    },
+    "/admins/{userId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "List of authorized admin UIDs"
+    }
+  }
+}
