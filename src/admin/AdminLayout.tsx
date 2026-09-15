@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, Link } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Image, 
@@ -13,7 +13,10 @@ import {
   ImagePlus,
   LogOut,
   LayoutTemplate,
-  Newspaper
+  Newspaper,
+  UserCheck,
+  ShieldCheck,
+  ChevronRight
 } from 'lucide-react';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { OptimizedImage } from '../components/ui/OptimizedImage';
@@ -31,9 +34,9 @@ const sidebarGroups = [
     title: 'Home Sections (Top to Bottom)',
     links: [
       { name: '1. Hero', path: '/admin/hero', icon: Image },
-      { name: '2. Project Showcase', path: '/admin/projects', icon: Briefcase }, // Assuming the sliding projects are controlled via projects, wait actually there are multiple things. Let's look at the home layout.
+      { name: '2. Project Showcase', path: '/admin/projects', icon: Briefcase },
       { name: '3. About', path: '/admin/about', icon: Info },
-      { name: '4. Selected Works', path: '/admin/projects', icon: Briefcase }, // Need to avoid duplicate paths, but that's okay. Let's just say "Projects"
+      { name: '4. Selected Works', path: '/admin/projects', icon: Briefcase },
       { name: '5. News & Stories', path: '/admin/news', icon: Newspaper },
       { name: '6. Gallery', path: '/admin/gallery', icon: ImagePlus },
       { name: '7. Man Behind Project', path: '/admin/team', icon: Users },
@@ -47,13 +50,39 @@ const sidebarGroups = [
     links: [
       { name: 'Contact Info', path: '/admin/contact', icon: Mail },
       { name: 'Footer Text', path: '/admin/footer', icon: LayoutTemplate },
+      { name: 'User Management', path: '/admin/users', icon: ShieldCheck },
       { name: 'Settings', path: '/admin/settings', icon: Settings },
     ]
   }
 ];
 
 export function AdminLayout() {
-  const { user, logout } = useAuth();
+  const { user, currentUser, logout } = useAuth();
+  const location = useLocation();
+
+  // Determine current section title
+  const getCurrentPageTitle = () => {
+    const path = location.pathname;
+    if (path === '/admin') return 'Dashboard Overview';
+    if (path === '/admin/users') return 'User & Profile Management';
+    if (path === '/admin/hero') return 'Hero Section';
+    if (path === '/admin/about') return 'About Section';
+    if (path === '/admin/services') return 'Services Section';
+    if (path === '/admin/projects') return 'Projects & Selected Works';
+    if (path === '/admin/news') return 'News & Stories';
+    if (path === '/admin/gallery') return 'Gallery Archive';
+    if (path === '/admin/team') return 'Man Behind Project';
+    if (path === '/admin/testimonials') return 'Testimonials';
+    if (path === '/admin/faq') return 'FAQ Section';
+    if (path === '/admin/contact') return 'Contact Information';
+    if (path === '/admin/footer') return 'Footer Content';
+    if (path === '/admin/settings') return 'Global Settings';
+    return 'Admin CMS';
+  };
+
+  const displayName = currentUser?.name || currentUser?.username || user?.displayName || 'Admin';
+  const displayRole = currentUser?.role || 'Administrator';
+  const avatarUrl = currentUser?.avatarUrl || user?.photoURL || '';
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#050505] font-sans flex">
@@ -112,19 +141,49 @@ export function AdminLayout() {
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0 ml-64 relative">
         {/* Top Navbar */}
-        <header className="h-20 sticky top-0 flex-shrink-0 flex items-center justify-between px-8 bg-white/50 dark:bg-[#050505]/50 backdrop-blur-md border-b border-gray-200 dark:border-white/10 z-10">
-          <div className="flex items-center gap-4">
-            <h1 className="text-sm uppercase tracking-[0.2em] font-bold text-gray-400 dark:text-gray-500">Dashboard</h1>
+        <header className="h-20 sticky top-0 flex-shrink-0 flex items-center justify-between px-8 bg-white/70 dark:bg-[#050505]/70 backdrop-blur-md border-b border-gray-200 dark:border-white/10 z-10 transition-colors">
+          <div className="flex items-center gap-3">
+            <h1 className="text-sm font-bold text-black dark:text-white tracking-wide">
+              {getCurrentPageTitle()}
+            </h1>
           </div>
+          
           <div className="flex items-center gap-6">
             <ThemeToggle />
-            <div className="flex items-center gap-3 pl-6 border-l border-gray-200 dark:border-white/10">
-              <div className="text-right">
-                <div className="text-xs font-bold text-black dark:text-white">{user?.displayName || 'Admin'}</div>
-                <div className="text-[10px] text-gray-500">{user?.email}</div>
+            
+            {/* Dynamic User Profile in Top Right Corner */}
+            <Link 
+              to="/admin/users"
+              title="Manage User & Profile Settings"
+              className="flex items-center gap-3 pl-6 border-l border-gray-200 dark:border-white/10 group cursor-pointer"
+            >
+              <div className="text-right hidden sm:block">
+                <div className="text-xs font-bold text-black dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors flex items-center justify-end gap-1.5">
+                  <span>{displayName}</span>
+                  <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="text-[10px] font-medium text-gray-400 dark:text-gray-500">
+                  {displayRole}
+                </div>
               </div>
-              <OptimizedImage src={user?.photoURL || ''} alt="Profile" className="w-9 h-9 rounded-full bg-gradient-to-tr from-gray-200 to-gray-400 dark:from-gray-700 dark:to-gray-600 object-cover" containerClassName="w-9 h-9 rounded-full border border-white/20" />
-            </div>
+
+              <div className="relative">
+                {avatarUrl ? (
+                  <OptimizedImage 
+                    src={avatarUrl} 
+                    alt={displayName} 
+                    className="w-10 h-10 rounded-full object-cover" 
+                    containerClassName="w-10 h-10 rounded-full border border-gray-200 dark:border-white/20 shadow-sm" 
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-gray-900 to-gray-700 dark:from-white/20 dark:to-white/10 flex items-center justify-center text-white font-bold text-xs uppercase border border-white/20 shadow-sm">
+                    {displayName.slice(0, 2)}
+                  </div>
+                )}
+                {/* Active Online Status Badge */}
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#0A0A0A] rounded-full" title="Online" />
+              </div>
+            </Link>
           </div>
         </header>
 
@@ -143,3 +202,4 @@ export function AdminLayout() {
     </div>
   );
 }
+

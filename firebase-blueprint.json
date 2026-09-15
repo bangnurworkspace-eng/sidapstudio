@@ -159,6 +159,25 @@
       },
       "required": ["email"]
     },
+    "User": {
+      "title": "User",
+      "description": "User profiles and credentials for Admin CMS",
+      "type": "object",
+      "properties": {
+        "username": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "password": { "type": "string" },
+        "phone": { "type": "string" },
+        "bio": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["username", "name"]
+    },
     "GalleryItem": {
       "title": "Gallery Item",
       "description": "An image in the visual gallery archive",
@@ -223,6 +242,10 @@
     "/admins/{userId}": {
       "schema": { "$ref": "#/entities/Admin" },
       "description": "List of authorized admin UIDs"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Admin and editor user accounts"
     }
   }
 }

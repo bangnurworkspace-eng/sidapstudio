@@ -280,8 +280,17 @@ export function Dashboard() {
             
             {/* Global & Footer Sections */}
             <div className="bg-gray-50/70 dark:bg-black/40 p-6 border-t border-gray-100 dark:border-white/5">
-              <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Pengaturan Global & Footer</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-4">Pengaturan Global, User & Footer</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Link to="/admin/users" className="flex items-center gap-3 p-4 bg-white dark:bg-[#18181B] border border-gray-200/80 dark:border-white/10 rounded-2xl hover:border-black dark:hover:border-white transition-all group shadow-sm">
+                  <div className="w-9 h-9 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors">
+                    <Users className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-xs font-bold text-black dark:text-white">User & Profile</h3>
+                    <p className="text-[11px] text-gray-500">Kelola akun, foto & role</p>
+                  </div>
+                </Link>
                 <Link to="/admin/contact" className="flex items-center gap-3 p-4 bg-white dark:bg-[#18181B] border border-gray-200/80 dark:border-white/10 rounded-2xl hover:border-black dark:hover:border-white transition-all group shadow-sm">
                   <div className="w-9 h-9 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors">
                     <Mail className="w-4 h-4" />

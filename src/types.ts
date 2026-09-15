@@ -58,3 +58,18 @@ export interface GalleryItem {
   updatedAt?: string;
 }
 
+export interface AdminUser {
+  id: string;
+  username: string;
+  name: string;
+  email: string;
+  role: string;
+  avatarUrl?: string;
+  password?: string;
+  phone?: string;
+  bio?: string;
+  status?: 'active' | 'inactive';
+  createdAt?: string;
+  updatedAt?: string;
+}
+

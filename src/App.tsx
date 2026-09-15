@@ -29,6 +29,7 @@ const GalleryAdmin = lazy(() => import('./admin/GalleryAdmin').then(m => ({ defa
 const TeamAdmin = lazy(() => import('./admin/TeamAdmin').then(m => ({ default: m.TeamAdmin })));
 const FooterAdmin = lazy(() => import('./admin/FooterAdmin').then(m => ({ default: m.FooterAdmin })));
 const WebsiteSettings = lazy(() => import('./admin/WebsiteSettings').then(m => ({ default: m.WebsiteSettings })));
+const UsersAdmin = lazy(() => import('./admin/UsersAdmin').then(m => ({ default: m.UsersAdmin })));
 const NewsAdmin = lazy(() => import('./admin/NewsAdmin').then(m => ({ default: m.NewsAdmin })));
 const News = lazy(() => import('./pages/News').then(m => ({ default: m.News })));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail').then(m => ({ default: m.ProjectDetail })));
@@ -77,6 +78,7 @@ export default function App() {
                           <Route path="gallery" element={<GalleryAdmin />} />
                           <Route path="team" element={<TeamAdmin />} />
                           <Route path="footer" element={<FooterAdmin />} />
+                          <Route path="users" element={<UsersAdmin />} />
                           <Route path="settings" element={<WebsiteSettings />} />
                           <Route path="*" element={<div className="p-8 text-center text-gray-500"><h2 className="text-2xl font-bold mb-2">Coming Soon</h2><p>This module is under construction.</p></div>} />
                         </Route>

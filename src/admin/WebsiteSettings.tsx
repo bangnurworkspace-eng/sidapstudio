@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Check, UploadCloud } from 'lucide-react';
+import { Check, UploadCloud, Users, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
 import { compressImage } from '../lib/imageUtils';
 import { db, storage } from '../lib/firebase';
@@ -172,7 +173,20 @@ export function WebsiteSettings() {
           </div>
         </div>
 
-        <h3 className="font-bold text-lg border-b border-gray-100 dark:border-white/5 pb-4 mt-8">Admin Security</h3>
+        <div className="flex items-center justify-between border-b border-gray-100 dark:border-white/5 pb-4 mt-8">
+          <div>
+            <h3 className="font-bold text-lg text-black dark:text-white">Admin Security & Accounts</h3>
+            <p className="text-xs text-gray-500 mt-0.5">Primary login credentials and user accounts</p>
+          </div>
+          <Link 
+            to="/admin/users" 
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-black hover:text-white dark:bg-white/10 dark:hover:bg-white dark:hover:text-black rounded-xl text-xs font-bold transition-all shadow-xs"
+          >
+            <Users className="w-3.5 h-3.5" />
+            <span>Open User Management</span>
+            <ArrowRight className="w-3 h-3" />
+          </Link>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-2">
@@ -181,7 +195,7 @@ export function WebsiteSettings() {
               type="text" 
               value={settings.adminId || ''} 
               onChange={e => handleChange('adminId', e.target.value)} 
-              className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/5 border border-transparent focus:border-black dark:focus:border-white/20 focus:bg-white dark:focus:bg-[#18181B] outline-none transition-all text-sm" 
+              className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/5 border border-transparent focus:border-black dark:focus:border-white/20 focus:bg-white dark:focus:bg-[#18181B] outline-none transition-all text-sm font-mono" 
               autoComplete="off"
               data-lpignore="true"
               data-form-type="other"
@@ -194,7 +208,7 @@ export function WebsiteSettings() {
               type="text" 
               value={settings.adminPassword || ''} 
               onChange={e => handleChange('adminPassword', e.target.value)} 
-              className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/5 border border-transparent focus:border-black dark:focus:border-white/20 focus:bg-white dark:focus:bg-[#18181B] outline-none transition-all text-sm" 
+              className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/5 border border-transparent focus:border-black dark:focus:border-white/20 focus:bg-white dark:focus:bg-[#18181B] outline-none transition-all text-sm font-mono" 
               autoComplete="new-password"
               data-lpignore="true"
               data-form-type="other"
